@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
@@ -39,10 +37,17 @@ public class PlayerController : MonoBehaviour
 
     void SetCountText()
     {
+        // Update the count text with the current count.
         countText.text = "Count: " + count.ToString();
-        if (count >= 14)
+
+        // Check if the count has reached or exceeded the win condition.
+        if (count >= 12)
         {
+            // Display the win text.
             winTextObject.SetActive(true);
+
+            // Destroy the enemy GameObject.
+            Destroy(GameObject.FindGameObjectWithTag("Enemy"));
         }
     }
 
@@ -55,6 +60,22 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(movement * speed);
 
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            // Destroy the current object
+            Destroy(gameObject);
+
+            // Update the winText to display "You Lose!"
+            winTextObject.gameObject.SetActive(true);
+            winTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
+
+
+        }
+    }
+
 
     void OnTriggerEnter(Collider other)
     {
