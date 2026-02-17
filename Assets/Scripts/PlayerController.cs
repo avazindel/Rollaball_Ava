@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private float movementY;
 
     public AudioSource audioSource;
+  
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -87,6 +88,8 @@ public class PlayerController : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             count = count + 1;
+
+
             audioSource.Play();
 
 
